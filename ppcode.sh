@@ -22,8 +22,8 @@ echo "	showtabs=false,"
 echo "	tabsize=4"
 echo "}"
 echo "\lstset{style=mystyle}"
-echo "\lstlistoflistings"
 echo "\begin{document}"
+echo "\lstlistoflistings"
 } > pretty-print-for-code.tex
 
 function print-a-file {
