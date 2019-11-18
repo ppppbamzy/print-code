@@ -27,6 +27,7 @@ echo "\lstlistoflistings"
 } > pretty-print-for-code.tex
 
 function print-a-file {
+    echo "\newpage"
     echo "\begin{lstlisting}[caption={$1}, language=C++]"
     cat $1
     echo "\end{lstlisting}"
