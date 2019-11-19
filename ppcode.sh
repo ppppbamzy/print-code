@@ -44,5 +44,6 @@ xelatex pretty-print-for-code.tex
 xelatex pretty-print-for-code.tex
 
 f=$(echo $(pwd) | base64)
-mv pretty-print-for-code.pdf $f.pdf
+# mv pretty-print-for-code.pdf $f.pdf
+mv pretty-print-for-code.pdf $f
 rm pretty-print-for-code.*
