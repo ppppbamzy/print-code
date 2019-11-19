@@ -28,7 +28,7 @@ echo "\lstlistoflistings"
 
 function print-a-file {
     echo "\newpage"
-    echo "\begin{lstlisting}[caption={$1}, language=C++]"
+    echo "\begin{lstlisting}[caption={$( echo "${1//_/\\_}" )}, language=C++]"
     cat $1
     echo "\end{lstlisting}"
 }
