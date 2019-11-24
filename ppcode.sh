@@ -45,5 +45,6 @@ xelatex pretty-print-for-code.tex
 
 f=$(echo $(pwd) | base64)
 # mv pretty-print-for-code.pdf $f.pdf
+# lp -d Canon-iR2535-2545-UFRII-LT $f.pdf -o duplex
 mv pretty-print-for-code.pdf $f
 rm pretty-print-for-code.*
