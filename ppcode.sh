@@ -1,11 +1,13 @@
 rm pretty-print-for-code.tex
 touch pretty-print-for-code.tex
+root=$(pwd)
 
 {
 echo "\documentclass{article}"
 echo "\usepackage[utf8]{inputenc}"
 echo "\usepackage[margin=0.8in]{geometry}"
 echo "\usepackage{listings}"
+echo "\usepackage[bookmarks]{hyperref}"
 echo "\usepackage{xcolor}"
 echo "\definecolor{codegray}{rgb}{0.5,0.5,0.5}"
 echo "\lstdefinestyle{mystyle}{"
@@ -24,27 +26,48 @@ echo "}"
 echo "\lstset{style=mystyle}"
 echo "\begin{document}"
 echo "\lstlistoflistings"
-} > pretty-print-for-code.tex
+} > "$root/pretty-print-for-code.tex"
 
 function print-a-file {
-    echo "\newpage"
-    echo "\begin{lstlisting}[caption={$( echo "${1//_/\\_}" )}, language=C++]"
+    # echo "\newpage"
+    curpath=$(pwd)
+    prefix="/home/ac/sandbox/"
+    curpath=${curpath#"$prefix"}
+    cap="$curpath/${1//_/\\_}"
+    echo "\pdfbookmark[0]{$cap}{$cap}"
+    echo "\begin{lstlisting}[caption={$cap}, language=Haskell]"
     cat $1
     echo "\end{lstlisting}"
 }
 
-for file in $(ls -r *.h *.c *.cpp)
-do
-    print-a-file $file >> pretty-print-for-code.tex
-done
+function print-cur-dir {
+    for dir in $(ls -d */)
+    do
+        cd $dir
+        print-cur-dir
+        cd ..
+    done
 
-echo "\end{document}" >> pretty-print-for-code.tex
+    rm readme.hs
+    if [ -f README ]; then
+        (echo "{-"; cat README; echo "-}") >> readme.hs
+    fi
+
+    for file in $(ls *.hs)
+    do
+        print-a-file $file >> "$root/pretty-print-for-code.tex"
+    done
+}
+
+print-cur-dir
+
+echo "\end{document}" >> "$root/pretty-print-for-code.tex"
 
 xelatex pretty-print-for-code.tex
 xelatex pretty-print-for-code.tex
 
-f=$(echo $(pwd) | base64)
+# f=$(echo $(pwd) | base64)
 # mv pretty-print-for-code.pdf $f.pdf
 # lp -d Canon-iR2535-2545-UFRII-LT $f.pdf -o duplex
-mv pretty-print-for-code.pdf "$f"
-rm pretty-print-for-code.*
+# mv pretty-print-for-code.pdf "$f"
+# rm pretty-print-for-code.*
