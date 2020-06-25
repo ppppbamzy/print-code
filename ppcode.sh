@@ -35,7 +35,7 @@ function print-a-file {
     curpath=${curpath#"$prefix"}
     cap="$curpath/${1//_/\\_}"
     echo "\pdfbookmark[0]{$cap}{$cap}"
-    echo "\begin{lstlisting}[caption={$cap}, language=Haskell]"
+    echo "\begin{lstlisting}[caption={$cap}, language=C++]"
     cat $1
     echo "\end{lstlisting}"
 }
@@ -53,7 +53,7 @@ function print-cur-dir {
         (echo "{-"; cat README; echo "-}") >> readme.hs
     fi
 
-    for file in $(ls *.hs)
+    for file in $(ls -r *.c *.cpp *.h)
     do
         print-a-file $file >> "$root/pretty-print-for-code.tex"
     done
