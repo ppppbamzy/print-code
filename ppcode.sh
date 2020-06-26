@@ -32,9 +32,9 @@ echo "\lstlistoflistings"
 function print-a-file {
     # echo "\newpage"
     curpath=$(pwd)
-    prefix="/home/ac/sandbox/"
+    prefix="$(cd .. && pwd)"
     curpath=${curpath#"$prefix"}
-    cap="$curpath/${1//_/\\_}"
+    cap="${curpath//_/\\_}/${1//_/\\_}"
     echo "\pdfbookmark[0]{$cap}{$cap}"
     echo "\begin{lstlisting}[caption={$cap}, language=C++]"
     cat $1
