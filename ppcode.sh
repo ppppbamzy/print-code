@@ -1,3 +1,4 @@
+#!/bin/bash
 rm pretty-print-for-code.tex
 touch pretty-print-for-code.tex
 root=$(pwd)
