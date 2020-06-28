@@ -4,7 +4,7 @@ touch pretty-print-for-code.tex
 root=$(pwd)
 
 {
-echo "\documentclass{article}"
+echo "\documentclass[a4paper, landscape]{article}"
 echo "\usepackage[utf8]{inputenc}"
 echo "\usepackage[margin=0.8in]{geometry}"
 echo "\usepackage{listings}"
@@ -12,6 +12,7 @@ echo "\usepackage[bookmarks]{hyperref}"
 echo "\usepackage{xcolor}"
 echo "\definecolor{codegray}{rgb}{0.5,0.5,0.5}"
 echo "\lstdefinestyle{mystyle}{"
+echo "  columns=flexible,"
 echo "	frame=single,"
 echo "	numberstyle=\small\ttfamily\color{codegray},"
 echo "	basicstyle=\linespread{0.95}\ttfamily,"
@@ -25,6 +26,8 @@ echo "	showtabs=false,"
 echo "	tabsize=4"
 echo "}"
 echo "\lstset{style=mystyle}"
+echo "\usepackage{fontspec}" 
+echo "\setmonofont[ItalicFont=LinLibertineOI, Contextuals=Alternate]{Fira Code}"
 echo "\begin{document}"
 echo "\lstlistoflistings"
 } > "$root/pretty-print-for-code.tex"
@@ -49,10 +52,10 @@ function print-cur-dir {
         cd ..
     done
 
-    rm readme.hs
-    if [ -f README ]; then
-        (echo "{-"; cat README; echo "-}") >> readme.hs
-    fi
+    # rm readme.h
+    # if [ -f README ]; then
+    #     (echo "/*"; cat README; echo "*/") >> readme.h
+    # fi
 
     for file in $(ls -r *.c *.cpp *.h)
     do
