@@ -40,9 +40,13 @@ function print-a-file {
     # echo "\newpage"
     curpath=$(pwd)
     # prefix="$(cd .. && pwd)"
-    prefix="$root/"
+    prefix="$root"
     curpath=${curpath#"$prefix"}
-    cap="${curpath//_/\\_}/${1//_/\\_}"
+    if [[ $curpath == "" ]]; then
+        cap="${1//_/\\_}"
+    else
+        cap="${curpath//_/\\_}/${1//_/\\_}"
+    fi
     echo "\pdfbookmark[0]{$cap}{$cap}"
     echo "\begin{lstlisting}[caption={$cap}, language=C++]"
     cat $1
@@ -72,8 +76,8 @@ print-cur-dir
 
 echo "\end{document}" >> "$root/pretty-print-for-code.tex"
 
-xelatex pretty-print-for-code.tex
-xelatex pretty-print-for-code.tex
+xelatex pretty-print-for-code.tex | grep '\['
+xelatex pretty-print-for-code.tex | grep '\['
 
 # f=$(echo $(pwd) | base64)
 # mv pretty-print-for-code.pdf $f.pdf
