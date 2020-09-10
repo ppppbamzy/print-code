@@ -1,5 +1,5 @@
 #!/bin/bash
-rm pretty-print-for-code.tex
+rm pretty-print-for-code.tex 2>/dev/null
 touch pretty-print-for-code.tex
 root=$(pwd)
 
@@ -8,6 +8,7 @@ echo "\documentclass[a4paper]{article}"
 echo "\usepackage[utf8]{inputenc}"
 echo "\usepackage[margin=0.5in]{geometry}"
 echo "\usepackage{listings}"
+echo "\usepackage[verbatim]{lstfiracode}"
 echo "\usepackage[bookmarks]{hyperref}"
 echo "\usepackage{xcolor}"
 echo "\definecolor{codegray}{rgb}{0.5,0.5,0.5}"
@@ -38,7 +39,8 @@ echo "\lstlistoflistings"
 function print-a-file {
     # echo "\newpage"
     curpath=$(pwd)
-    prefix="$(cd .. && pwd)"
+    # prefix="$(cd .. && pwd)"
+    prefix="$root/"
     curpath=${curpath#"$prefix"}
     cap="${curpath//_/\\_}/${1//_/\\_}"
     echo "\pdfbookmark[0]{$cap}{$cap}"
@@ -48,7 +50,7 @@ function print-a-file {
 }
 
 function print-cur-dir {
-    for dir in $(ls -d */)
+    for dir in $(ls -d */ 2>/dev/null)
     do
         cd $dir
         print-cur-dir
@@ -60,7 +62,7 @@ function print-cur-dir {
     #     (echo "/*"; cat README; echo "*/") >> readme.h
     # fi
 
-    for file in $(ls -r *.c *.cpp *.h)
+    for file in $(ls -r *.c *.cpp *.h 2>/dev/null)
     do
         print-a-file $file >> "$root/pretty-print-for-code.tex"
     done
