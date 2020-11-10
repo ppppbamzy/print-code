@@ -42,6 +42,7 @@ function print-a-file {
     # prefix="$(cd .. && pwd)"
     prefix="$root"
     curpath=${curpath#"$prefix"}
+    curpath=${curpath#"/"}
     if [[ $curpath == "" ]]; then
         cap="${1//_/\\_}"
     else
