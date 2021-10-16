@@ -8,6 +8,7 @@ echo "\documentclass[a4paper]{article}"
 echo "\usepackage[utf8]{inputenc}"
 echo "\usepackage[margin=0.5in]{geometry}"
 echo "\usepackage{listings}"
+echo "\usepackage{listings-rust}"
 echo "\usepackage[verbatim]{lstfiracode}"
 echo "\usepackage[bookmarks]{hyperref}"
 echo "\usepackage{xcolor}"
@@ -67,7 +68,7 @@ function print-cur-dir {
     #     (echo "/*"; cat README; echo "*/") >> readme.h
     # fi
 
-    for file in $(ls -r *.c *.cpp *.h 2>/dev/null)
+    for file in $(ls -r *.c *.cpp *.h *.hpp 2>/dev/null)
     do
         print-a-file $file >> "$root/pretty-print-for-code.tex"
     done
