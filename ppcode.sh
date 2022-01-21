@@ -32,7 +32,7 @@ echo "}"
 echo "\lstset{style=mystyle}"
 echo "\usepackage{fontspec}" 
 echo "\setmainfont{LinLibertineO}"
-echo "\setmonofont[Contextuals=Alternate]{Fira Code}"
+echo "\setmonofont[Contextuals=Alternate]{Cascadia Code}"
 echo "\begin{document}"
 echo "\lstlistoflistings"
 } > "$root/pretty-print-for-code.tex"
@@ -81,8 +81,6 @@ echo "\end{document}" >> "$root/pretty-print-for-code.tex"
 xelatex pretty-print-for-code.tex | grep '\['
 xelatex pretty-print-for-code.tex | grep '\['
 
-# f=$(echo $(pwd) | base64)
-# mv pretty-print-for-code.pdf $f.pdf
-# lp -d Canon-iR2535-2545-UFRII-LT $f.pdf -o duplex
-# mv pretty-print-for-code.pdf "$f"
-# rm pretty-print-for-code.*
+f=$(echo $(pwd) | base64)
+mv pretty-print-for-code.pdf $f.pdf
+rm pretty-print-for-code.*
